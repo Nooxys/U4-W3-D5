@@ -70,7 +70,7 @@ public class Loan {
     }
 
     public void setExpectedReturnDate(LocalDate expectedReturnDate) {
-        this.expectedReturnDate = expectedReturnDate;
+        this.expectedReturnDate = this.expectedReturnDate.plusDays(30);
     }
 
     public LocalDate getEffectiveReturnDate() {
@@ -84,7 +84,6 @@ public class Loan {
     public long getId() {
         return id;
     }
-
 
 
     @Override

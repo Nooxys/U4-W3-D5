@@ -36,7 +36,7 @@ public class Book extends LibraryArchive {
         return () -> {
             Faker faker = new Faker();
             Random random = new Random();
-            int code = random.nextInt(1, 500);
+            int code = random.nextInt(1, 2000);
             String title = faker.book().title();
             int releaseDate = random.nextInt(1960, 2024);
             int pages = random.nextInt(50, 300);
@@ -87,6 +87,7 @@ public class Book extends LibraryArchive {
     public void setGenre(String genre) {
         this.genre = genre;
     }
+
 
 
 }

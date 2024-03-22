@@ -33,7 +33,7 @@ public Magazine(){
         return () -> {
             Faker faker = new Faker();
             Random random = new Random();
-            int code = random.nextInt(1, 500);
+            int code = random.nextInt(1, 2000);
             String title = faker.book().title();
             int releaseDate = random.nextInt(1960, 2024);
             int pages = random.nextInt(50, 300);
@@ -70,5 +70,9 @@ public Magazine(){
 
     public Periodicity getPeriodicity() {
         return periodicity;
+    }
+
+    public void setPeriodicity(Periodicity periodicity) {
+        this.periodicity = periodicity;
     }
 }

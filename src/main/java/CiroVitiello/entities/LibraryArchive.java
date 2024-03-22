@@ -1,15 +1,11 @@
 package CiroVitiello.entities;
 
-
-
-
 import jakarta.persistence.*;
-
-
 import java.util.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "kind_of_readable")
 public abstract class LibraryArchive {
 
     //  ATTRIBUTES
@@ -42,8 +38,6 @@ protected Loan loan;
 
 
     // METHODS
-
-
 
 
     @Override
@@ -80,5 +74,33 @@ protected Loan loan;
 
     public int getPages() {
         return pages;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setISBNcode(int ISBNcode) {
+        this.ISBNcode = ISBNcode;
+    }
+
+    public void setTitle(String title) {
+        Title = title;
+    }
+
+    public void setYearOfPublication(int yearOfPublication) {
+        this.yearOfPublication = yearOfPublication;
+    }
+
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
+
+    public Loan getLoan() {
+        return loan;
+    }
+
+    public void setLoan(Loan loan) {
+        this.loan = loan;
     }
 }
