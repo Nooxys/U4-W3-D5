@@ -63,23 +63,15 @@ public class LibraryArchiveDAO {
 
     // DELETE BY ISBN
 
-    public void findByISBNandDeleteByIsbn(int isbn){
-        try {
+    public void deleteByIsbn(int isbn){
         EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        Query query = em.createQuery("DELETE FROM LibraryArchive l  WHERE l.ISBNcode = :isbn");
+        query.setParameter("isbn", isbn);
+        query.executeUpdate();
+        transaction.commit();
+        System.out.println("Readable " + isbn + " has been deleted!");
 
-        TypedQuery<LibraryArchive> delQuery = this.em.createQuery("SELECT l from LibraryArchive l WHERE l.ISBNcode = :isbn", LibraryArchive.class);
-        delQuery.setParameter("isbn", isbn);
-        LibraryArchive readable = delQuery.getSingleResult();
-
-       if (readable != null){
-           transaction.begin();
-           this.em.remove(readable);
-           transaction.commit();
-           System.out.println("Readable with ISBN code: " + isbn + "has been deleted!");
-       } }
-       catch(NoFoundException e){
-             e.getMessage();
-        }
     }
 
     // SEARCH BY YEAR
@@ -105,4 +97,10 @@ public class LibraryArchiveDAO {
         query.setParameter("title", "%" + title + "%");
         return query.getResultList();
     };
+
+    public List<LibraryArchive> findElementByCardNumber(int number){
+        TypedQuery<LibraryArchive> query = em.createQuery("SELECT a FROM LibraryArchive a JOIN Loan l ON l.id = a.loan.id WHERE l.user.cardNumber = :cardNumber", LibraryArchive.class);
+        query.setParameter("cardNumber", number);
+        return query.getResultList();
+    }
 }

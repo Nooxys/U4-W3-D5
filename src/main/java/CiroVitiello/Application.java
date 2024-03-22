@@ -9,8 +9,7 @@ import com.github.javafaker.Faker;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ import java.util.function.Supplier;
 
 public class Application {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("U4-W3-D5");
-    private static Logger logger = LoggerFactory.getLogger((Application.class));
+
     public static void main(String[] args) {
         Faker faker = new Faker();
         EntityManager em = emf.createEntityManager();
@@ -43,7 +42,7 @@ public class Application {
        // LOANS CREATION
 //
 //        for (int i = 0; i <15; i++) {
-//            loanDAO.save(new Loan(userDAO.findById(random.nextInt(1,26)),  LocalDate.now(), LocalDate.now().plusDays(random.nextInt(3,90))));
+//            loanDAO.save(new Loan(userDAO.findById(random.nextInt(1,26)),  LocalDate.now(), LocalDate.now().plusDays(random.nextInt(15,50))));
 //        }
 
         // LIBRARY ARCHIVE CREATION
@@ -58,13 +57,33 @@ public class Application {
 //        }
 
 
+            // FIND BY ISBN
 
+        System.out.println(libraryArchiveDAO.findByIsbn(165));
 
-//        System.out.println(libraryArchiveDAO.findByIsbn(830));
-//        libraryArchiveDAO.findByISBNandDeleteByIsbn(8120);
-//        System.out.println(libraryArchiveDAO.findByYear(2014));
-//        System.out.println(libraryArchiveDAO.findByAuthor("Lynne Metz"));
-//        System.out.println(libraryArchiveDAO.findByTitle("The Sun Also Rises"));
+            // DELETE BY ISBN
+
+        libraryArchiveDAO.deleteByIsbn(4335); //  <--- WILL DELETE THE CURRENT READABLE IN THE DB
+
+            // FIND BY YEAR
+
+        libraryArchiveDAO.findByYear(2014).forEach(libraryArchive -> System.out.println(libraryArchive));
+
+            // FIND BY AUTHOR
+
+        libraryArchiveDAO.findByAuthor("Ruthanne Thiel").forEach(libraryArchive -> System.out.println(libraryArchive));
+
+            // FIND BY TITLE
+
+       libraryArchiveDAO.findByTitle("The Daffodil Sky").forEach(libraryArchive -> System.out.println(libraryArchive));
+
+            // FIND ELEMENT BY CARD NUMBER
+
+        libraryArchiveDAO.findElementByCardNumber(193).forEach(element -> System.out.println(element));
+
+            // FIND EXPIRED LOANS
+
+        loanDAO.findExpiredLoans().forEach(loan -> System.out.println(loan));
 
         emf.close();
         emf.close();

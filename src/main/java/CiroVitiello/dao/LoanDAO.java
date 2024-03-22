@@ -1,10 +1,15 @@
 package CiroVitiello.dao;
 
 
+import CiroVitiello.entities.Book;
+import CiroVitiello.entities.LibraryArchive;
 import CiroVitiello.entities.Loan;
 import CiroVitiello.exceptions.NoFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
+
+import java.util.List;
 
 public class LoanDAO {
     private EntityManager em;
@@ -46,4 +51,11 @@ public class LoanDAO {
             System.out.println(e.getMessage());
         }
     }
+
+    public List<Loan> findExpiredLoans(){
+        TypedQuery<Loan> query = em.createQuery("SELECT l FROM Loan l WHERE EXTRACT(MONTH FROM l.effectiveReturnDate) > EXTRACT(MONTH FROM l.expectedReturnDate) OR EXTRACT(DAY FROM l.effectiveReturnDate) > EXTRACT(DAY FROM l.expectedReturnDate)", Loan.class);
+        return query.getResultList();
+    }
+
+
 }
