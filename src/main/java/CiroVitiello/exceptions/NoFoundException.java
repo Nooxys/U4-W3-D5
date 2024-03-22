@@ -3,6 +3,6 @@ package CiroVitiello.exceptions;
 
 public class NoFoundException extends RuntimeException {
     public NoFoundException(long id) {
-        super("The readable with " + id + " ID was not found.");
+        super("The element with " + id + " ID was not found.");
     }
 }

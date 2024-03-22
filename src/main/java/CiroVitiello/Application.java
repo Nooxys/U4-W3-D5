@@ -3,17 +3,14 @@ package CiroVitiello;
 import CiroVitiello.dao.LibraryArchiveDAO;
 import CiroVitiello.dao.LoanDAO;
 import CiroVitiello.dao.UserDAO;
-import CiroVitiello.entities.Book;
-import CiroVitiello.entities.LibraryArchive;
-import CiroVitiello.entities.Magazine;
-import CiroVitiello.entities.User;
-import com.github.javafaker.Faker;
+import CiroVitiello.entities.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -51,15 +48,17 @@ public class Application {
 //    archive.forEach(libraryArchive -> libraryArchiveDAO.save(libraryArchive));
 
 
-       // LOAN CREATION
+       // LOANS CREATION
+
+//        for (int i = 0; i <15; i++) {
+//            loanDAO.save(new Loan(userDAO.findById(random.nextInt(1,26)), libraryArchiveDAO.findById(i+1), LocalDate.now(), LocalDate.now().plusDays(random.nextInt(3,90))));
+//        }
+
+//        System.out.println(libraryArchiveDAO.findByIsbn(830));
+//        libraryArchiveDAO.deleteByIsbn(830);
+//        System.out.println(libraryArchiveDAO.findByYear(2014));
 
 
-
-
-
-
-
-        System.out.println("Hello World!");
 
         emf.close();
         emf.close();

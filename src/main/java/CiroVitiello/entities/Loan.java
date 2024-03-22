@@ -29,11 +29,11 @@ public class Loan {
 
     }
 
-    public Loan(User user, LibraryArchive readable, LocalDate loanStartDate, LocalDate expectedReturnDate, LocalDate effectiveReturnDate) {
+    public Loan(User user, LibraryArchive readable, LocalDate loanStartDate, LocalDate effectiveReturnDate) {
         this.user = user;
         this.readable = readable;
         this.loanStartDate = loanStartDate;
-        this.expectedReturnDate = expectedReturnDate;
+        setExpectedReturnDate();
         this.effectiveReturnDate = effectiveReturnDate;
 
     }
@@ -69,8 +69,8 @@ public class Loan {
         return expectedReturnDate;
     }
 
-    public void setExpectedReturnDate(LocalDate expectedReturnDate) {
-        this.expectedReturnDate = this.expectedReturnDate.plusDays(30);
+    public void setExpectedReturnDate() {
+        this.expectedReturnDate = this.loanStartDate.plusDays(30);
     }
 
     public LocalDate getEffectiveReturnDate() {
