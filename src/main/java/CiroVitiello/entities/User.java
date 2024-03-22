@@ -1,15 +1,25 @@
 package CiroVitiello.entities;
 
-import java.util.Date;
+import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.util.List;
+
+@Entity
 public class User {
 
    // ATTRIBUTES
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+@Column(name = "user_id")
+
+private long id;
     private String name;
     private String surname;
-
-    private Date dateOfBirth;
-
+    private LocalDate dateOfBirth;
+    @OneToMany(mappedBy = "user")
+    private List<Loan> loanList;
+@Column(unique = true, nullable = false)
     private int cardNumber;
 
 
@@ -20,7 +30,7 @@ public class User {
 
     }
 
-    public User(String name, String surname, Date dateOfBirth, int cardNumber) {
+    public User(String name, String surname, LocalDate dateOfBirth, int cardNumber) {
         this.name = name;
         this.surname = surname;
         this.dateOfBirth = dateOfBirth;
@@ -46,11 +56,11 @@ public class User {
         this.surname = surname;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

@@ -1,11 +1,12 @@
 package CiroVitiello.entities;
 
 import com.github.javafaker.Faker;
+import jakarta.persistence.Entity;
 
 import java.util.Objects;
 import java.util.Random;
 import java.util.function.Supplier;
-
+@Entity
 public class Book extends LibraryArchive {
 
     // ATTRIBUTES
@@ -16,6 +17,11 @@ public class Book extends LibraryArchive {
     private String genre;
 
     // CONSTRUCTOR
+
+    public Book(){
+
+    }
+
     public Book(int ISBNcode, String title, int yearOfPublication, int pages, String author, String genre) {
         super(ISBNcode, title, yearOfPublication, pages);
         this.author = author;

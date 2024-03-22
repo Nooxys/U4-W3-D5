@@ -3,21 +3,35 @@ package CiroVitiello.entities;
 
 
 
+import jakarta.persistence.*;
+
+
 import java.util.*;
 
-
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class LibraryArchive {
 
     //  ATTRIBUTES
-
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+private long id;
+@Column(unique = true, nullable = false)
     protected int ISBNcode;
     protected String Title;
     protected int yearOfPublication;
-
+@Column(name = "number_of_pages")
     protected int pages;
+
+@OneToOne(mappedBy = "readable")
+protected Loan loan;
+
 
     // CONSTRUCTOR
 
+    public LibraryArchive(){
+
+    }
 
     public LibraryArchive(int ISBNcode, String title, int yearOfPublication, int pages) {
         this.ISBNcode = ISBNcode;

@@ -2,17 +2,23 @@ package CiroVitiello.entities;
 
 import CiroVitiello.enums.Periodicity;
 import com.github.javafaker.Faker;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 import java.util.Random;
 import java.util.function.Supplier;
-
+@Entity
 public class Magazine extends LibraryArchive {
 
     //  ATTRIBUTES
-
+@Enumerated(EnumType.STRING)
     private Periodicity periodicity;
 
-    // CONSTRUCTOR
+    // CONSTRUCTORS
+public Magazine(){
+
+}
 
     public Magazine(int ISBNcode, String title, int yearOfPublication, int pages, Periodicity periodicity) {
         super(ISBNcode, title, yearOfPublication, pages);

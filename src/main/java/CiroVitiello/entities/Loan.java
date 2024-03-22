@@ -1,13 +1,20 @@
 package CiroVitiello.entities;
 
-import java.time.LocalDate;
+import jakarta.persistence.*;
 
+import java.time.LocalDate;
+@Entity
 public class Loan {
 
     // ATTRIBUTES
-
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+@ManyToOne
+@JoinColumn(name = "user_id")
     private User user;
-
+@OneToOne
+@JoinColumn(name = "readable_id")
     private LibraryArchive readable;
 
     private LocalDate loanStartDate;
@@ -73,6 +80,12 @@ public class Loan {
     public void setEffectiveReturnDate(LocalDate effectiveReturnDate) {
         this.effectiveReturnDate = effectiveReturnDate;
     }
+
+    public long getId() {
+        return id;
+    }
+
+
 
     @Override
     public String toString() {
