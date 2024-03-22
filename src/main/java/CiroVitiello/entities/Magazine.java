@@ -1,13 +1,11 @@
 package CiroVitiello.entities;
 
 import CiroVitiello.enums.Periodicity;
-import com.github.javafaker.Faker;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 
-import java.util.Random;
-import java.util.function.Supplier;
+
 @Entity
 public class Magazine extends LibraryArchive {
 
@@ -20,30 +18,10 @@ public Magazine(){
 
 }
 
-    public Magazine(int ISBNcode, String title, int yearOfPublication, int pages, Periodicity periodicity) {
-        super(ISBNcode, title, yearOfPublication, pages);
+    public Magazine(int ISBNcode, String title, int yearOfPublication, int pages,Loan loan, Periodicity periodicity) {
+        super(ISBNcode, title, yearOfPublication, pages,loan);
         this.periodicity = periodicity;
     }
-
-
-    // SUPPLIER
-
-    public static Supplier<Magazine> magazineSupplier() {
-
-        return () -> {
-            Faker faker = new Faker();
-            Random random = new Random();
-            int code = random.nextInt(1, 2000);
-            String title = faker.book().title();
-            int releaseDate = random.nextInt(1960, 2024);
-            int pages = random.nextInt(50, 300);
-            Periodicity periodicity = Periodicity.randomPeriodicity();
-
-            return new Magazine(code, title, releaseDate, pages, periodicity);
-        };
-
-    }
-
 
     // METHODS
 

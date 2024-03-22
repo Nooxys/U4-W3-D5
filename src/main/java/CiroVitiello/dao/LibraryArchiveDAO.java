@@ -1,12 +1,10 @@
 package CiroVitiello.dao;
 
 
+import CiroVitiello.entities.Book;
 import CiroVitiello.entities.LibraryArchive;
 import CiroVitiello.exceptions.NoFoundException;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -65,14 +63,23 @@ public class LibraryArchiveDAO {
 
     // DELETE BY ISBN
 
-    public void deleteByIsbn(int isbn){
+    public void findByISBNandDeleteByIsbn(int isbn){
+        try {
         EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-        Query query = em.createQuery("DELETE FROM LibraryArchive l WHERE l.ISBNcode = :isbn");
-        query.setParameter("isbn", isbn);
-        query.executeUpdate();
-        transaction.commit();
-        System.out.println("The readable " + isbn + "has been deleted!" );
+
+        TypedQuery<LibraryArchive> delQuery = this.em.createQuery("SELECT l from LibraryArchive l WHERE l.ISBNcode = :isbn", LibraryArchive.class);
+        delQuery.setParameter("isbn", isbn);
+        LibraryArchive readable = delQuery.getSingleResult();
+
+       if (readable != null){
+           transaction.begin();
+           this.em.remove(readable);
+           transaction.commit();
+           System.out.println("Readable with ISBN code: " + isbn + "has been deleted!");
+       } }
+       catch(NoFoundException e){
+             e.getMessage();
+        }
     }
 
     // SEARCH BY YEAR
@@ -83,4 +90,19 @@ public class LibraryArchiveDAO {
         return query.getResultList();
     }
 
+    // SEARCH BY AUTHOR
+
+    public List<Book> findByAuthor(String author) {
+        TypedQuery<Book> query = em.createQuery("SELECT b FROM Book b WHERE b.author = :author", Book.class);
+        query.setParameter("author", author);
+        return query.getResultList();
+    }
+
+    // SEARCH BY TITLE
+
+    public List<LibraryArchive> findByTitle(String title){
+        TypedQuery<LibraryArchive> query = em.createQuery("SELECT l from LibraryArchive l WHERE LOWER(l.Title) LIKE LOWER (:title)", LibraryArchive.class);
+        query.setParameter("title", "%" + title + "%");
+        return query.getResultList();
+    };
 }

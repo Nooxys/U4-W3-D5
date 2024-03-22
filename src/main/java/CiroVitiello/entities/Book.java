@@ -1,11 +1,9 @@
 package CiroVitiello.entities;
 
-import com.github.javafaker.Faker;
+
 import jakarta.persistence.Entity;
 
 import java.util.Objects;
-import java.util.Random;
-import java.util.function.Supplier;
 @Entity
 public class Book extends LibraryArchive {
 
@@ -22,31 +20,11 @@ public class Book extends LibraryArchive {
 
     }
 
-    public Book(int ISBNcode, String title, int yearOfPublication, int pages, String author, String genre) {
-        super(ISBNcode, title, yearOfPublication, pages);
+    public Book(int ISBNcode, String title, int yearOfPublication, int pages,Loan loan, String author, String genre) {
+        super(ISBNcode, title, yearOfPublication, pages,loan);
         this.author = author;
         this.genre = genre;
     }
-
-
-    //  SUPPLIER
-
-    public static Supplier<Book> booksSupplier() {
-
-        return () -> {
-            Faker faker = new Faker();
-            Random random = new Random();
-            int code = random.nextInt(1, 2000);
-            String title = faker.book().title();
-            int releaseDate = random.nextInt(1960, 2024);
-            int pages = random.nextInt(50, 300);
-            String author = faker.book().author();
-            String genre = faker.book().genre();
-
-            return new Book(code, title, releaseDate, pages, author, genre);
-        };
-    }
-
 
     // METHODS
 

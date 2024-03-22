@@ -13,8 +13,7 @@ public class Loan {
 @ManyToOne
 @JoinColumn(name = "user_id")
     private User user;
-@OneToOne
-@JoinColumn(name = "readable_id")
+@OneToOne(mappedBy = "loan")
     private LibraryArchive readable;
 
     private LocalDate loanStartDate;
@@ -29,9 +28,8 @@ public class Loan {
 
     }
 
-    public Loan(User user, LibraryArchive readable, LocalDate loanStartDate, LocalDate effectiveReturnDate) {
+    public Loan(User user, LocalDate loanStartDate, LocalDate effectiveReturnDate) {
         this.user = user;
-        this.readable = readable;
         this.loanStartDate = loanStartDate;
         setExpectedReturnDate();
         this.effectiveReturnDate = effectiveReturnDate;

@@ -19,7 +19,8 @@ private long id;
 @Column(name = "number_of_pages")
     protected int pages;
 
-@OneToOne(mappedBy = "readable")
+@OneToOne
+@JoinColumn(name = "loan_id")
 protected Loan loan;
 
 
@@ -29,11 +30,12 @@ protected Loan loan;
 
     }
 
-    public LibraryArchive(int ISBNcode, String title, int yearOfPublication, int pages) {
+    public LibraryArchive(int ISBNcode, String title, int yearOfPublication, int pages, Loan loan) {
         this.ISBNcode = ISBNcode;
         Title = title;
         this.yearOfPublication = yearOfPublication;
         this.pages = pages;
+        this.loan = loan;
     }
 
 
